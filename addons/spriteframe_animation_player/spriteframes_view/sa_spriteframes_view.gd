@@ -2,30 +2,45 @@ tool
 class_name SpriteFramesAnimationViewContainer
 extends Control
 
-export(SpriteFrames) var sprite_frames: SpriteFrames
+export(SpriteFrames) var sprite_frames: SpriteFrames setget _set_sprite_frames, _get_sprite_frames
+var _sprite_frames: SpriteFrames
 
 export(NodePath) var _option_button: NodePath
 onready var option_button: OptionButton = get_node(_option_button)
 
-export(NodePath) var _preview_container: NodePath
-onready var preview_container: Control = get_node(_preview_container)
+export(NodePath) var _animation_view: NodePath
+onready var animation_view: SpriteFramesAnimationView = get_node(_animation_view)
 
-var animation_view_res: PackedScene = load("res://addons/spriteframe_animation_player/animation_view/sa_animation_view.tscn")
-var animation_previews: Array
+func _set_sprite_frames(sf: SpriteFrames):
+	_sprite_frames = sf
+	_apply_sprite_frames()
+
+func _get_sprite_frames() -> SpriteFrames:
+	return _sprite_frames
 
 func _ready():
-	option_button.connect("item_selected", self, "on_item_selected")
+		option_button.connect("item_selected", self, "on_item_selected")
 
-	for a in sprite_frames.get_animation_names():
-		var av: SpriteFramesAnimationView = animation_view_res.instance()
-		av.sprite_frames = sprite_frames
-		av.animation_name = a
-		animation_previews.append(av)
+func cleanup():
+	option_button.clear()
+
+func _apply_sprite_frames() -> void:
+	cleanup()
+
+	if not _sprite_frames:
+		animation_view.visible = false
+		return
+
+	for a in _sprite_frames.get_animation_names():
 		option_button.add_item(a)
+		option_button.set_item_metadata(option_button.get_item_count()-1, {"frames": _sprite_frames, "name": a})
 
-	on_item_selected(0)
-		
+	if option_button.get_item_count() > 0:
+			on_item_selected(0)
+
 func on_item_selected(idx: int):
-	if preview_container.get_child_count() > 0:
-		preview_container.remove_child(preview_container.get_child(0))
-	preview_container.add_child(animation_previews[idx])
+	animation_view.visible = true
+	animation_view.set_data( option_button.get_item_metadata(idx))
+
+func _exit_tree():
+	cleanup()

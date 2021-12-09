@@ -21,11 +21,18 @@ var current_frame: int = 0
 var time_since_last_frame: float = 0
 
 func _ready():
+	if not sprite_frames || not animation_name:
+		return
+	set_data({"frames": sprite_frames, "name": animation_name})
+
+func set_data(d :Dictionary):
+	sprite_frames = d["frames"]
+	animation_name = d["name"]
 	fps_value_label.text = "%d" % sprite_frames.get_animation_speed(animation_name)
 	looping_value_label.text =  _is_looping(); 
 	frame_count_label.text = "%d" % sprite_frames.get_frame_count(animation_name)
 	animation_preview_texture_rect.texture = sprite_frames.get_frame(animation_name, current_frame)
-	
+
 func _is_looping() -> String:
 	if not sprite_frames:
 		return "not looping"
@@ -35,7 +42,7 @@ func _is_looping() -> String:
 	return "not looping"
 
 func _process(delta):
-	if not animation_preview_texture_rect || not sprite_frames:
+	if not animation_preview_texture_rect || not sprite_frames || not animation_name:
 		return
 
 	time_since_last_frame += delta;

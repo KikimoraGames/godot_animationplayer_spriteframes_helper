@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://sa_examples/2d_animation_player-run.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://addons/spriteframe_animation_player/animation_view/sa_animation_view.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/spriteframe_animation_player/spriteframes_view/sa_spriteframes_view.gd" type="Script" id=2]
 
 [node name="SpriteFrameAnimationControlEntry" type="Control"]
@@ -11,9 +11,8 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-sprite_frames = ExtResource( 1 )
 _option_button = NodePath("PanelContainer/VBoxContainer/HBoxContainer/OptionButton")
-_preview_container = NodePath("PanelContainer/VBoxContainer/PreviewContainer")
+_animation_view = NodePath("PanelContainer/VBoxContainer/SA_AnimationView")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchor_right = 1.0
@@ -43,9 +42,13 @@ margin_left = 86.0
 margin_right = 286.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
+items = [ "run_1", null, false, 0, null, "run_2", null, false, 1, null ]
+selected = 0
 
-[node name="PreviewContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+[node name="SA_AnimationView" parent="PanelContainer/VBoxContainer" instance=ExtResource( 1 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_top = 24.0
 margin_right = 286.0
-margin_bottom = 586.0
-size_flags_vertical = 3
+margin_bottom = 166.0
