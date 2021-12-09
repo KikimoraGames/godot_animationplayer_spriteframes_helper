@@ -1,0 +1,94 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://sa_examples/2d_animation_player-run.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://sa_examples/default_anim.tres" type="Animation" id=2]
+[ext_resource path="res://sa_examples/icon.png" type="Texture" id=3]
+[ext_resource path="res://sa_examples/2d_animation_frog_spritesheet.tres" type="SpriteFrames" id=4]
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("SomethingElse:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -30, -21 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnotherOne:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "with_animated_sprite"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Fox:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 1,
+"values": [  ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Frog:frames")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 1,
+"values": [  ]
+}
+
+[node name="Example" type="Node2D"]
+
+[node name="Fox" type="AnimatedSprite" parent="."]
+position = Vector2( -45, -15 )
+frames = ExtResource( 1 )
+animation = "run_1"
+
+[node name="Frog" type="AnimatedSprite" parent="."]
+frames = ExtResource( 4 )
+animation = "default_fast"
+frame = 1
+
+[node name="SomethingElse" type="Node2D" parent="."]
+position = Vector2( -30, -21 )
+
+[node name="Sprite" type="Sprite" parent="SomethingElse"]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( -43, 96 )
+texture = ExtResource( 3 )
+
+[node name="AnotherOne" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="AnotherOne"]
+position = Vector2( 73, 54 )
+texture = ExtResource( 3 )
+
+[node name="AnbimationPlayerHolder" type="Node2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnbimationPlayerHolder"]
+root_node = NodePath("../..")
+anims/RESET = SubResource( 2 )
+anims/no_animated_sprite = ExtResource( 2 )
+anims/with_animated_sprite = SubResource( 1 )

@@ -1,0 +1,13 @@
+
+# Godot-specific ignores
+.import/
+export.cfg
+*.translation
+
+# Mono-specific ignores
+.mono/
+data_*/
+
+[Bb]uild/
+
+version.txt

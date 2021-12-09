@@ -1,0 +1,139 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://addons/spriteframe_animation_player/animation_view/sa_animation_view.gd" type="Script" id=1]
+[ext_resource path="res://sa_examples/2d_animation_player-run.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://sa_examples/2d_animation_player-run.png" type="Texture" id=3]
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 99, 0, 33, 32 )
+
+[node name="SA_AnimationView" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+sprite_frames = ExtResource( 2 )
+animation_name = "run_1"
+_fps_value_label = NodePath("PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer/FPSContainer/FPSValue")
+_looping_value_label = NodePath("PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer/LoopingContainer/LoopingValue")
+_frame_count_label = NodePath("PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer/FrameCountContainer/FrameCountValue")
+_animation_preview_texture_rect = NodePath("PanelContainer/HBoxContainer/MarginContainer/AnimationPreview")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_right = 300.0
+margin_bottom = 600.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 293.0
+margin_bottom = 593.0
+alignment = 1
+
+[node name="CenterContainer2" type="CenterContainer" parent="PanelContainer/HBoxContainer"]
+margin_left = 38.0
+margin_right = 104.0
+margin_bottom = 586.0
+
+[node name="HBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/CenterContainer2"]
+margin_top = 260.0
+margin_right = 66.0
+margin_bottom = 326.0
+
+[node name="FPSContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer"]
+margin_right = 66.0
+margin_bottom = 14.0
+
+[node name="FPSLabel" type="Label" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer/FPSContainer"]
+margin_right = 26.0
+margin_bottom = 14.0
+text = "FPS:"
+
+[node name="FPSValue" type="Label" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer/FPSContainer"]
+margin_left = 30.0
+margin_right = 46.0
+margin_bottom = 14.0
+text = "10"
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer"]
+margin_top = 18.0
+margin_right = 66.0
+margin_bottom = 22.0
+
+[node name="LoopingContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer"]
+margin_top = 26.0
+margin_right = 66.0
+margin_bottom = 40.0
+
+[node name="LoopingValue" type="Label" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer/LoopingContainer"]
+margin_right = 62.0
+margin_bottom = 14.0
+text = "looping"
+uppercase = true
+
+[node name="HSeparator2" type="HSeparator" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer"]
+margin_top = 44.0
+margin_right = 66.0
+margin_bottom = 48.0
+
+[node name="FrameCountContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer"]
+margin_top = 52.0
+margin_right = 66.0
+margin_bottom = 66.0
+
+[node name="FrameCountLabel" type="Label" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer/FrameCountContainer"]
+margin_right = 54.0
+margin_bottom = 14.0
+text = "FRAMES:"
+
+[node name="FrameCountValue" type="Label" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer/FrameCountContainer"]
+margin_left = 58.0
+margin_right = 66.0
+margin_bottom = 14.0
+text = "6"
+uppercase = true
+
+[node name="Control" type="Control" parent="PanelContainer/HBoxContainer"]
+margin_left = 108.0
+margin_right = 108.0
+margin_bottom = 586.0
+
+[node name="Control2" type="Control" parent="PanelContainer/HBoxContainer"]
+margin_left = 112.0
+margin_right = 112.0
+margin_bottom = 586.0
+
+[node name="Control3" type="Control" parent="PanelContainer/HBoxContainer"]
+margin_left = 116.0
+margin_right = 116.0
+margin_bottom = 586.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer"]
+margin_left = 120.0
+margin_right = 248.0
+margin_bottom = 586.0
+
+[node name="ReferenceRect" type="ReferenceRect" parent="PanelContainer/HBoxContainer/MarginContainer"]
+margin_right = 128.0
+margin_bottom = 586.0
+border_color = Color( 0.878431, 0.878431, 0.878431, 1 )
+
+[node name="AnimationPreview" type="TextureRect" parent="PanelContainer/HBoxContainer/MarginContainer"]
+margin_right = 128.0
+margin_bottom = 586.0
+rect_min_size = Vector2( 128, 128 )
+rect_clip_content = true
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource( 4 )
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
