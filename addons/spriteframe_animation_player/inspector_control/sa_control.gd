@@ -2,8 +2,11 @@ tool
 class_name SpriteFrameAnimationPlayerControl
 extends Control
 
-export var assigned_animation_label: NodePath
-onready var _assigned_animation_label: Label = get_node(assigned_animation_label)
+export(NodePath) var refresh_button: NodePath
+onready var _refresh_button: Button = get_node(refresh_button)
+
+export(NodePath) var assigned_animation_option_button: NodePath
+onready var _assigned_animation_option_button: OptionButton = get_node(assigned_animation_option_button)
 
 export(NodePath) var _option_button: NodePath
 onready var option_button: OptionButton = get_node(_option_button)
@@ -18,9 +21,23 @@ var animation_player: AnimationPlayer
 var previous_animation: String
 
 func _ready():
-	$PanelContainer/VBoxContainer/Button.connect("pressed", self, "refresh_animation")
+	_refresh_button.connect("pressed", self, "refresh_animation")
 	option_button.connect("item_selected", self, "on_item_selected")
-	
+	_assigned_animation_option_button.connect("item_selected", self, "on_animation_assigned")
+	if not animation_player:
+		return
+	var anims = animation_player.get_animation_list()
+	for a in anims:
+		_assigned_animation_option_button.add_item(a)
+		if animation_player.assigned_animation == a:
+			var i := _assigned_animation_option_button.get_item_count()- 1
+			_assigned_animation_option_button.select(i)
+			refresh_animation()
+
+func on_animation_assigned(idx: int) -> void:
+	animation_player.assigned_animation = _assigned_animation_option_button.get_item_text(idx)
+	refresh_animation()
+
 func cleanup():
 	option_button.clear()
 
@@ -30,7 +47,6 @@ func refresh_animation():
 
 	cleanup()
 	previous_animation = animation_player.assigned_animation
-	_assigned_animation_label.text = animation_player.assigned_animation
 	var animation: Animation = animation_player.get_animation(animation_player.assigned_animation)
 	var tc := animation.get_track_count()
 	if tc == 0:
