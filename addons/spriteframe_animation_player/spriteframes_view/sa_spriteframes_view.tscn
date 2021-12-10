@@ -34,12 +34,12 @@ margin_bottom = 20.0
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 margin_top = 3.0
-margin_right = 82.0
+margin_right = 66.0
 margin_bottom = 17.0
-text = "ANIMATION:"
+text = "Animation"
 
 [node name="OptionButton" type="OptionButton" parent="PanelContainer/VBoxContainer/HBoxContainer"]
-margin_left = 86.0
+margin_left = 70.0
 margin_right = 300.0
 margin_bottom = 20.0
 size_flags_horizontal = 3

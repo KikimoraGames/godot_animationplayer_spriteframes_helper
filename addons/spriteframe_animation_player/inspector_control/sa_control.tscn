@@ -27,8 +27,11 @@ assigned_animation_option_button = NodePath("PanelContainer/VBoxContainer/Panel/
 _option_button = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/OptionButtonContainer/OptionButton")
 _current_animation_preview = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/SpriteFrameAnimationControlEntry")
 _option_button_container = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/OptionButtonContainer")
-_insert_button = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/InsertButton")
-_fill_toggle = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/FillToggle")
+_insert_button = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer/InsertButton")
+_fill_toggle = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer/GridContainer/FillToggle")
+_insert_control = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer")
+_set_animation_length_toggle = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer/GridContainer/SetAnimationLengthToggle")
+_set_looping_toggle = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer/GridContainer/SetLoopingToggle")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 margin_right = 300.0
@@ -57,8 +60,8 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/Panel/CenterContainer"]
-margin_left = 92.0
-margin_right = 207.0
+margin_left = 100.0
+margin_right = 199.0
 margin_bottom = 30.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -66,14 +69,13 @@ __meta__ = {
 
 [node name="Assigned Animation Label" type="Label" parent="PanelContainer/VBoxContainer/Panel/CenterContainer/HBoxContainer"]
 margin_top = 8.0
-margin_right = 82.0
+margin_right = 66.0
 margin_bottom = 22.0
-text = "Animation:"
-uppercase = true
+text = "Animation"
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/Panel/CenterContainer/HBoxContainer"]
-margin_left = 86.0
-margin_right = 115.0
+margin_left = 70.0
+margin_right = 99.0
 margin_bottom = 30.0
 custom_constants/margin_top = 5
 custom_constants/margin_bottom = 5
@@ -103,47 +105,66 @@ margin_bottom = 542.0
 
 [node name="OptionButtonContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer/VBoxContainer"]
 margin_right = 300.0
-margin_bottom = 254.0
+margin_bottom = 230.0
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/OptionButtonContainer"]
-margin_top = 120.0
-margin_right = 44.0
-margin_bottom = 134.0
+margin_top = 108.0
+margin_right = 99.0
+margin_bottom = 122.0
 size_flags_horizontal = 4
-text = "Track:"
-uppercase = true
+text = "AnimatedSprite"
 
 [node name="OptionButton" type="OptionButton" parent="PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/OptionButtonContainer"]
-margin_left = 48.0
+margin_left = 103.0
 margin_right = 300.0
-margin_bottom = 254.0
+margin_bottom = 230.0
 size_flags_horizontal = 3
 
 [node name="SpriteFrameAnimationControlEntry" parent="PanelContainer/VBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 258.0
+margin_top = 234.0
 margin_right = 300.0
-margin_bottom = 514.0
+margin_bottom = 490.0
 rect_min_size = Vector2( 0, 256 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer/VBoxContainer"]
-margin_top = 518.0
+[node name="InsertContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+margin_top = 494.0
 margin_right = 300.0
 margin_bottom = 542.0
 
-[node name="FillToggle" type="CheckBox" parent="PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer"]
+margin_right = 300.0
+margin_bottom = 24.0
+columns = 4
+
+[node name="FillToggle" type="CheckBox" parent="PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer/GridContainer"]
 margin_right = 47.0
 margin_bottom = 24.0
 text = "Fill"
 
-[node name="InsertButton" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="SetAnimationLengthToggle" type="CheckBox" parent="PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer/GridContainer"]
 margin_left = 51.0
-margin_right = 300.0
+margin_right = 146.0
 margin_bottom = 24.0
+text = "Set Length"
+
+[node name="SetLoopingToggle" type="CheckBox" parent="PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer/GridContainer"]
+margin_left = 150.0
+margin_right = 252.0
+margin_bottom = 24.0
+text = "Set Looping"
+__meta__ = {
+"_editor_description_": "Sets the loop property of the Animation to equal the SpriteFrame animation"
+}
+
+[node name="InsertButton" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer"]
+margin_top = 28.0
+margin_right = 300.0
+margin_bottom = 48.0
 size_flags_horizontal = 3
-text = "INSERT SpriteFrames INTO TRACK"
+text = "Insert"
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -23,6 +23,15 @@ onready var insert_button: Button = get_node(_insert_button)
 export(NodePath) var _fill_toggle: NodePath
 onready var fill_toggle: CheckBox = get_node(_fill_toggle)
 
+export(NodePath) var _insert_control: NodePath
+onready var insert_control: Control = get_node(_insert_control)
+
+export(NodePath) var _set_animation_length_toggle: NodePath
+onready var set_animation_length_toggle: CheckBox = get_node(_set_animation_length_toggle)
+
+export(NodePath) var _set_looping_toggle: NodePath
+onready var set_looping_toggle: CheckBox = get_node(_set_looping_toggle)
+
 var animation_player: AnimationPlayer
 var previous_animation: String
 
@@ -51,6 +60,11 @@ func cleanup():
 func animation_player_root_node() -> Node:
 	return animation_player.get_node(animation_player.root_node)
 
+func toggle_controls_visible(v: bool) -> void:
+	current_animation_preview.visible = v
+	insert_button.visible = v
+	insert_control.visible = v
+
 func refresh_animation():
 	if not animation_player.assigned_animation:
 		return
@@ -60,8 +74,7 @@ func refresh_animation():
 	var animation: Animation = animation_player.get_animation(animation_player.assigned_animation)
 	var tc := animation.get_track_count()
 	if tc == 0:
-		current_animation_preview.visible = false
-		insert_button.visible = false
+		toggle_controls_visible(false)
 		return
 	
 	var visited_nodes: Dictionary = {}
@@ -77,12 +90,10 @@ func refresh_animation():
 	
 	option_button_container.visible = option_button.get_item_count() > 0
 	if option_button.get_item_count() <= 0:
-		current_animation_preview.visible = false
-		insert_button.visible = false
+		toggle_controls_visible(false)
 		return
 
-	current_animation_preview.visible = true
-	insert_button.visible = true
+	toggle_controls_visible(true)
 	on_item_selected(0)
 
 		
@@ -151,6 +162,12 @@ func insert_track() -> void:
 			target_animation.track_insert_key(frame_track, t, frame)
 			t += frequency
 		should_exit = !fill_toggle.pressed || t >= target_animation.length
+	
+	if set_animation_length_toggle.pressed:
+		target_animation.length = t
+	
+	if set_looping_toggle.pressed:
+			target_animation.loop = frames.get_animation_loop(source_animation)
 	
 # func _process(delta):
 # 	if not animation_player:

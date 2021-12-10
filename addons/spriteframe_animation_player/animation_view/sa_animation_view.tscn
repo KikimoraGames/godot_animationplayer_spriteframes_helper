@@ -30,17 +30,17 @@ margin_bottom = 600.0
 alignment = 1
 
 [node name="CenterContainer2" type="CenterContainer" parent="PanelContainer/HBoxContainer"]
-margin_left = 37.0
-margin_right = 119.0
+margin_left = 21.0
+margin_right = 134.0
 margin_bottom = 600.0
 
 [node name="HBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/CenterContainer2"]
 margin_top = 267.0
-margin_right = 82.0
+margin_right = 113.0
 margin_bottom = 333.0
 
 [node name="FPSContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer"]
-margin_right = 82.0
+margin_right = 113.0
 margin_bottom = 14.0
 
 [node name="FPSLabel" type="Label" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer/FPSContainer"]
@@ -56,12 +56,12 @@ text = "99"
 
 [node name="HSeparator" type="HSeparator" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer"]
 margin_top = 18.0
-margin_right = 82.0
+margin_right = 113.0
 margin_bottom = 22.0
 
 [node name="LoopingContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer"]
 margin_top = 26.0
-margin_right = 82.0
+margin_right = 113.0
 margin_bottom = 40.0
 
 [node name="LoopingValue" type="Label" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer/LoopingContainer"]
@@ -72,44 +72,44 @@ uppercase = true
 
 [node name="HSeparator2" type="HSeparator" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer"]
 margin_top = 44.0
-margin_right = 82.0
+margin_right = 113.0
 margin_bottom = 48.0
 
 [node name="FrameCountContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer"]
 margin_top = 52.0
-margin_right = 82.0
+margin_right = 113.0
 margin_bottom = 66.0
 
 [node name="FrameCountLabel" type="Label" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer/FrameCountContainer"]
-margin_right = 54.0
+margin_right = 85.0
 margin_bottom = 14.0
-text = "FRAMES:"
+text = "Frame Count:"
 
 [node name="FrameCountValue" type="Label" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer/FrameCountContainer"]
-margin_left = 58.0
-margin_right = 82.0
+margin_left = 89.0
+margin_right = 113.0
 margin_bottom = 14.0
 text = "999"
 uppercase = true
 
 [node name="Control" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 123.0
-margin_right = 123.0
+margin_left = 138.0
+margin_right = 138.0
 margin_bottom = 600.0
 
 [node name="Control2" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 127.0
-margin_right = 127.0
+margin_left = 142.0
+margin_right = 142.0
 margin_bottom = 600.0
 
 [node name="Control3" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 131.0
-margin_right = 131.0
+margin_left = 146.0
+margin_right = 146.0
 margin_bottom = 600.0
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer"]
-margin_left = 135.0
-margin_right = 263.0
+margin_left = 150.0
+margin_right = 278.0
 margin_bottom = 600.0
 
 [node name="ReferenceRect" type="ReferenceRect" parent="PanelContainer/HBoxContainer/MarginContainer"]
