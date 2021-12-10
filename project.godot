@@ -34,7 +34,7 @@ _global_script_class_icons={
 
 config/name="SpriteFrame Animation"
 run/main_scene="res://addons/spriteframe_animation_player/inspector_control/sa_control.tscn"
-config/icon="res://sa_examples/icon.png"
+config/icon="res://sa_example/icon.png"
 
 [display]
 

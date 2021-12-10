@@ -1,0 +1,142 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://sa_example/default_anim.tres" type="Animation" id=1]
+[ext_resource path="res://sa_example/2d_animation_player-run.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://sa_example/2d_animation_frog_spritesheet.tres" type="SpriteFrames" id=3]
+[ext_resource path="res://sa_example/icon.png" type="Texture" id=4]
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("SomethingElse:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -30, -21 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnotherOne:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "with_animated_sprite"
+loop = true
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/path = NodePath("Fox:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.493 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -45, -15 ), Vector2( -50, -15 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Frog:frames")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 3 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Frog:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "default" ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Fox:frames")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 2 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Fox:animation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "run_1" ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Fox:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5 ]
+}
+
+[node name="Example" type="Node2D"]
+
+[node name="Fox" type="AnimatedSprite" parent="."]
+position = Vector2( -45, -15 )
+frames = ExtResource( 2 )
+animation = "run_1"
+
+[node name="Frog" type="AnimatedSprite" parent="."]
+frames = ExtResource( 3 )
+
+[node name="SomethingElse" type="Node2D" parent="."]
+position = Vector2( -30, -21 )
+
+[node name="Sprite" type="Sprite" parent="SomethingElse"]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( -43, 96 )
+texture = ExtResource( 4 )
+
+[node name="AnotherOne" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="AnotherOne"]
+position = Vector2( 73, 54 )
+texture = ExtResource( 4 )
+
+[node name="AnbimationPlayerHolder" type="Node2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnbimationPlayerHolder"]
+root_node = NodePath("../..")
+anims/RESET = SubResource( 2 )
+anims/no_animated_sprite = ExtResource( 1 )
+anims/with_animated_sprite = SubResource( 1 )

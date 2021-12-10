@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://addons/spriteframe_animation_player/animation_view/sa_animation_view.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/spriteframe_animation_player/spriteframes_view/sa_spriteframes_view.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=1]
 
 [node name="SpriteFrameAnimationControlEntry" type="Control"]
 anchor_right = 1.0
@@ -17,18 +19,17 @@ _animation_view = NodePath("PanelContainer/VBoxContainer/SA_AnimationView")
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 293.0
-margin_bottom = 593.0
+margin_right = 300.0
+margin_bottom = 600.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
-margin_right = 286.0
+margin_right = 300.0
 margin_bottom = 20.0
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
@@ -39,16 +40,15 @@ text = "ANIMATION:"
 
 [node name="OptionButton" type="OptionButton" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 margin_left = 86.0
-margin_right = 286.0
+margin_right = 300.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
-items = [ "run_1", null, false, 0, null, "run_2", null, false, 1, null ]
-selected = 0
 
 [node name="SA_AnimationView" parent="PanelContainer/VBoxContainer" instance=ExtResource( 1 )]
-visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 24.0
-margin_right = 286.0
-margin_bottom = 166.0
+margin_right = 300.0
+margin_bottom = 600.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0

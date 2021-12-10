@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://addons/spriteframe_animation_player/animation_view/sa_animation_view.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=1]
 
 [node name="SA_AnimationView" type="MarginContainer"]
 anchor_right = 1.0
@@ -17,26 +19,25 @@ _animation_preview_texture_rect = NodePath("PanelContainer/HBoxContainer/MarginC
 [node name="PanelContainer" type="PanelContainer" parent="."]
 margin_right = 300.0
 margin_bottom = 600.0
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 293.0
-margin_bottom = 593.0
+margin_right = 300.0
+margin_bottom = 600.0
 alignment = 1
 
 [node name="CenterContainer2" type="CenterContainer" parent="PanelContainer/HBoxContainer"]
-margin_left = 30.0
-margin_right = 112.0
-margin_bottom = 586.0
+margin_left = 37.0
+margin_right = 119.0
+margin_bottom = 600.0
 
 [node name="HBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/CenterContainer2"]
-margin_top = 260.0
+margin_top = 267.0
 margin_right = 82.0
-margin_bottom = 326.0
+margin_bottom = 333.0
 
 [node name="FPSContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer"]
 margin_right = 82.0
@@ -92,33 +93,33 @@ text = "999"
 uppercase = true
 
 [node name="Control" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 116.0
-margin_right = 116.0
-margin_bottom = 586.0
+margin_left = 123.0
+margin_right = 123.0
+margin_bottom = 600.0
 
 [node name="Control2" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 120.0
-margin_right = 120.0
-margin_bottom = 586.0
+margin_left = 127.0
+margin_right = 127.0
+margin_bottom = 600.0
 
 [node name="Control3" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 124.0
-margin_right = 124.0
-margin_bottom = 586.0
+margin_left = 131.0
+margin_right = 131.0
+margin_bottom = 600.0
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer"]
-margin_left = 128.0
-margin_right = 256.0
-margin_bottom = 586.0
+margin_left = 135.0
+margin_right = 263.0
+margin_bottom = 600.0
 
 [node name="ReferenceRect" type="ReferenceRect" parent="PanelContainer/HBoxContainer/MarginContainer"]
 margin_right = 128.0
-margin_bottom = 586.0
+margin_bottom = 600.0
 border_color = Color( 0.878431, 0.878431, 0.878431, 1 )
 
 [node name="AnimationPreview" type="TextureRect" parent="PanelContainer/HBoxContainer/MarginContainer"]
 margin_right = 128.0
-margin_bottom = 586.0
+margin_bottom = 600.0
 rect_min_size = Vector2( 128, 128 )
 rect_clip_content = true
 size_flags_horizontal = 3

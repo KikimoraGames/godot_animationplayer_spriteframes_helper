@@ -44,3 +44,6 @@ func on_item_selected(idx: int):
 
 func _exit_tree():
 	cleanup()
+
+func get_current_animation() -> String:
+	return option_button.get_selected_metadata()["name"]

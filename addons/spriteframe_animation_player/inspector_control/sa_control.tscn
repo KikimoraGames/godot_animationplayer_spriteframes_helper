@@ -1,12 +1,16 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://addons/spriteframe_animation_player/inspector_control/sa_control.gd" type="Script" id=1]
 [ext_resource path="res://addons/spriteframe_animation_player/spriteframes_view/sa_spriteframes_view.tscn" type="PackedScene" id=2]
 
 [sub_resource type="StyleBoxEmpty" id=2]
 
+[sub_resource type="StyleBoxEmpty" id=3]
+
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.25098, 0.270588, 0.32549, 1 )
+
+[sub_resource type="StyleBoxEmpty" id=4]
 
 [node name="SpriteFramesAnimationInspectorControl" type="PanelContainer"]
 anchor_right = 1.0
@@ -23,18 +27,18 @@ assigned_animation_option_button = NodePath("PanelContainer/VBoxContainer/Panel/
 _option_button = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/OptionButtonContainer/OptionButton")
 _current_animation_preview = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/SpriteFrameAnimationControlEntry")
 _option_button_container = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/OptionButtonContainer")
+_insert_button = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/InsertButton")
+_fill_toggle = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/FillToggle")
 
-[node name="PanelContainer" type="Panel" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 margin_right = 300.0
 margin_bottom = 600.0
 size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
+custom_styles/panel = SubResource( 3 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+margin_right = 300.0
+margin_bottom = 600.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -91,35 +95,55 @@ margin_top = 58.0
 margin_right = 300.0
 margin_bottom = 600.0
 size_flags_vertical = 3
+custom_styles/panel = SubResource( 4 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 293.0
-margin_bottom = 535.0
+margin_right = 300.0
+margin_bottom = 542.0
 
 [node name="OptionButtonContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer/VBoxContainer"]
-visible = false
-margin_right = 272.0
-margin_bottom = 20.0
+margin_right = 300.0
+margin_bottom = 254.0
+size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/OptionButtonContainer"]
-margin_top = 3.0
-margin_right = 132.0
-margin_bottom = 17.0
-text = "Editing Track:"
+margin_top = 120.0
+margin_right = 44.0
+margin_bottom = 134.0
+size_flags_horizontal = 4
+text = "Track:"
 uppercase = true
 
 [node name="OptionButton" type="OptionButton" parent="PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/OptionButtonContainer"]
-margin_left = 136.0
-margin_right = 272.0
-margin_bottom = 20.0
+margin_left = 48.0
+margin_right = 300.0
+margin_bottom = 254.0
 size_flags_horizontal = 3
 
 [node name="SpriteFrameAnimationControlEntry" parent="PanelContainer/VBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource( 2 )]
-visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 24.0
-margin_right = 272.0
-margin_bottom = 524.0
+margin_top = 258.0
+margin_right = 300.0
+margin_bottom = 514.0
+rect_min_size = Vector2( 0, 256 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+margin_top = 518.0
+margin_right = 300.0
+margin_bottom = 542.0
+
+[node name="FillToggle" type="CheckBox" parent="PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_right = 47.0
+margin_bottom = 24.0
+text = "Fill"
+
+[node name="InsertButton" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 51.0
+margin_right = 300.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "INSERT SpriteFrames INTO TRACK"
+__meta__ = {
+"_edit_use_anchors_": false
+}
