@@ -11,10 +11,10 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-_fps_value_label = NodePath("PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer/FPSContainer/FPSValue")
-_looping_value_label = NodePath("PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer/LoopingContainer/LoopingValue")
-_frame_count_label = NodePath("PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer/FrameCountContainer/FrameCountValue")
-_animation_preview_texture_rect = NodePath("PanelContainer/HBoxContainer/MarginContainer/AnimationPreview")
+fps_value_label = NodePath("PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer/FPSContainer/FPSValue")
+looping_value_label = NodePath("PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer/LoopingContainer/LoopingValue")
+frame_count_label = NodePath("PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer/FrameCountContainer/FrameCountValue")
+animation_preview_texture_rect = NodePath("PanelContainer/HBoxContainer/MarginContainer/AnimationPreview")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 margin_right = 300.0

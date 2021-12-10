@@ -24,14 +24,14 @@ __meta__ = {
 }
 refresh_button = NodePath("PanelContainer/VBoxContainer/RefreshButton")
 assigned_animation_option_button = NodePath("PanelContainer/VBoxContainer/Panel/CenterContainer/HBoxContainer/MarginContainer/AssignedAnimationOptionButton")
-_option_button = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/OptionButtonContainer/OptionButton")
-_current_animation_preview = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/SpriteFrameAnimationControlEntry")
-_option_button_container = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/OptionButtonContainer")
-_insert_button = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer/InsertButton")
-_fill_toggle = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer/GridContainer/FillToggle")
-_insert_control = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer")
-_set_animation_length_toggle = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer/GridContainer/SetAnimationLengthToggle")
-_set_looping_toggle = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer/GridContainer/SetLoopingToggle")
+option_button = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/OptionButtonContainer/OptionButton")
+current_animation_preview = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/SpriteFrameAnimationControlEntry")
+option_button_container = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/OptionButtonContainer")
+insert_button = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer/InsertButton")
+fill_toggle = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer/GridContainer/FillToggle")
+insert_control = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer")
+set_animation_length_toggle = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer/GridContainer/SetAnimationLengthToggle")
+set_looping_toggle = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer/GridContainer/SetLoopingToggle")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 margin_right = 300.0
