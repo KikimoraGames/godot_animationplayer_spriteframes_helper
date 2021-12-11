@@ -8,6 +8,8 @@ AnimationPlayer SpriteFrames Helper allows for an easier addition of SpriteFrame
 # Table Of Contents  <!-- omit in toc -->
 - [Why?](#why)
 - [How To](#how-to)
+- [Kikimora Games ❤ Open Source](#kikimora-games--open-source)
+  - [Support Us](#support-us)
   
 # Why?
 An `AnimatedSprite` is an amazing tool for easy spritesheet animation, and `SpriteFrames` are a great data container. Especially when paired with plugins such as [Godot Aseprite Wizard](https://github.com/viniciusgerevini/godot-aseprite-wizard).
@@ -40,4 +42,11 @@ And finally, you can select to `Fill` and `Set Length`:
 Pressing the **`Insert`** button will inject tracks for `frames`, `animation` and `frame` properties into the selected animation, starting from the current playback position. You can adjust this in the animation dock. 
 
 <img align="center" src="./screenshots/timeline_insert.gif" />
+
+# [Kikimora Games](https://www.kikimora.games/) ❤ Open Source
+Kikimora Games is a small indie game studio from Stockholm, Sweden. We believe that making games doesn't have to be done in secret, and that by sharing knowledge our industry can grow and nurture talent.
+
+## Support Us
+- [Play and share the games we make](https://kikimora.itch.io/)
+- [Follow us on Twitter](https://twitter.com/KikimoraGames)
 
