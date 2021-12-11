@@ -11,7 +11,6 @@ export(NodePath) var insert_button: NodePath
 export(NodePath) var fill_toggle: NodePath
 export(NodePath) var insert_control: NodePath
 export(NodePath) var set_animation_length_toggle: NodePath
-export(NodePath) var set_looping_toggle: NodePath
 
 var _previous_animation: String
 
@@ -24,15 +23,14 @@ onready var _insert_button: Button = get_node(insert_button)
 onready var _fill_toggle: CheckBox = get_node(fill_toggle)
 onready var _insert_control: Control = get_node(insert_control)
 onready var _set_animation_length_toggle: CheckBox = get_node(set_animation_length_toggle)
-onready var _set_looping_toggle: CheckBox = get_node(set_looping_toggle)
 
 var animation_player: AnimationPlayer
 
 
 func _ready():
 	_refresh_button.connect("pressed", self, "refresh_animation")
-	_option_button.connect("item_selected", self, "on_item_selected")
-	_insert_button.connect("pressed", self, "insert_track")
+	_option_button.connect("item_selected", self, "_on_item_selected")
+	_insert_button.connect("pressed", self, "_insert_track")
 	_assigned_animation_option_button.connect("item_selected", self, "_on_animation_assigned")
 	if not animation_player:
 		return
@@ -97,23 +95,71 @@ func refresh_animation():
 		return
 
 	toggle_controls_visible(true)
-	on_item_selected(0)
+	_on_item_selected(0)
 
 		
-func on_item_selected(idx: int) -> void:
+func _on_item_selected(idx: int) -> void:
 	_current_animation_preview.sprite_frames = _option_button.get_item_metadata(idx)["frames"]
 
 
-
-func insert_track() -> void:
+func _insert_track() -> void:
 	var sm = _option_button.get_selected_metadata()
 	var frames: SpriteFrames = sm["frames"]
 	var target_node: AnimatedSprite = sm["node"]
 	var target_node_path: = _animation_player_root_node().get_path_to(target_node)
 	var target_animation := animation_player.get_animation(animation_player.assigned_animation)
 	var source_animation := _current_animation_preview.get_current_animation()
+	var t := animation_player.current_animation_position
 
 	# first get all target_tracks
+	var target_tracks = _get_target_tracks(target_animation, target_node)
+	# insert tracks that don't exist
+	for k in ["frames", "animation", "frame"]:
+		if target_tracks[k] != -1:
+			continue
+
+		var idx := target_animation.add_track(Animation.TYPE_VALUE)
+		var np := ""
+		for n in target_node_path.get_name_count():
+			np += "%s/" % target_node_path.get_name(n)
+		np += ":%s" % k["property"]
+		target_animation.value_track_set_update_mode(idx, Animation.UPDATE_DISCRETE)
+		target_animation.track_set_path(idx, np)
+		target_tracks[k] = idx
+	# calculate total length
+	var frequency := 1.0 / frames.get_animation_speed(source_animation)
+	var source_animation_frame_count := frames.get_frame_count(source_animation)
+	var total_length := target_animation.length - t if _fill_toggle.pressed else frequency * source_animation_frame_count
+	var last_keyframe_time := t + total_length
+	# clear keyframes during our animation 
+	for tt in target_tracks:
+		var track_idx :int = target_tracks[tt]
+		for key_idx in range (target_animation.track_get_key_count(track_idx)-1, -1, -1):
+			var key_time := target_animation.track_get_key_time(track_idx, key_idx)
+			if key_time >= t && key_time <= last_keyframe_time:
+				target_animation.track_remove_key(track_idx, key_idx)
+	# add keys for "frames", "animation"
+	for k in[	
+				{"property": "frames", "value": frames},
+				{"property":"animation", "value": source_animation},
+			]:
+		target_animation.track_insert_key(target_tracks[k["property"]], t, k["value"])
+	# add key frames for "frame"
+	var frame_track :int = target_tracks["frame"]
+	for frame in source_animation_frame_count:
+		frame = frame % source_animation_frame_count
+		target_animation.track_insert_key(frame_track, t, frame)
+		t += frequency
+		if t > last_keyframe_time:
+			break
+	
+	if _set_animation_length_toggle.pressed:
+		target_animation.length = t
+	
+	_set_animation_length_toggle.pressed = false
+	_fill_toggle.pressed = false
+
+func _get_target_tracks(target_animation: Animation, target_node: Node) -> Dictionary:
 	var target_tracks := []
 	var tc := target_animation.get_track_count()
 	for i in tc:
@@ -123,50 +169,22 @@ func insert_track() -> void:
 			continue
 		target_tracks.append({"path": path, "idx": i})
 	
-	# clear all existing tracks for "frames", "animation", "frame"
-	target_tracks.invert()
+	var output := {}
 	for path_idx in target_tracks:
 		var p: NodePath = path_idx["path"]
-		var found := false
 		for i in p.get_subname_count():
 			var sn := p.get_subname(i)
-			if sn == "frames" ||  sn == "animation" || sn == "frame":
-				found = true
-				break
-		if (found):
-			target_animation.remove_track(path_idx["idx"])
-	
-	# add keys for "frames", "animation"
-	for k in [{"property": "frames", "value": frames}, {"property":"animation", "value": source_animation}]:
-		var np := ""
-		for n in target_node_path.get_name_count():
-			np += "%s/" % target_node_path.get_name(n)
-		np += ":%s" % k["property"]
-		var idx := target_animation.add_track(Animation.TYPE_VALUE)
-		target_animation.value_track_set_update_mode(idx, Animation.UPDATE_DISCRETE)
-		target_animation.track_set_path(idx, np)
-		target_animation.track_insert_key(idx, 0.0, k["value"])
-	
-	# add key frames for "frame"
-	var frequency := 1.0 / frames.get_animation_speed(source_animation)
-	var frame_track := target_animation.add_track(Animation.TYPE_VALUE)
-	var np := ""
-	for n in target_node_path.get_name_count():
-		np += "%s/" % target_node_path.get_name(n)
-	np += ":frame"
-	target_animation.track_set_path(frame_track, np)
-	target_animation.value_track_set_update_mode(frame_track, Animation.UPDATE_DISCRETE)
-	
-	var t := 0.0
-	var should_exit := false
-	while not should_exit:
-		for frame in frames.get_frame_count(source_animation):
-			target_animation.track_insert_key(frame_track, t, frame)
-			t += frequency
-		should_exit = !_fill_toggle.pressed || t >= target_animation.length
-	
-	if _set_animation_length_toggle.pressed:
-		target_animation.length = t
-	
-	if _set_looping_toggle.pressed:
-			target_animation.loop = frames.get_animation_loop(source_animation)
+			match sn:
+				"frames":
+					output["frames"] = path_idx["idx"]
+					break
+				"animation":
+					output["animation"] = path_idx["idx"]
+					break
+				"frame":
+					output["frame"] = path_idx["idx"]
+					break
+	for k in ["frames", "animation", "frame"]:
+		if not output.has(k):
+			output[k] = -1
+	return output

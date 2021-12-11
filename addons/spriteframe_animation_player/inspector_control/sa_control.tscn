@@ -31,7 +31,7 @@ insert_button = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContai
 fill_toggle = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer/GridContainer/FillToggle")
 insert_control = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer")
 set_animation_length_toggle = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer/GridContainer/SetAnimationLengthToggle")
-set_looping_toggle = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer/GridContainer/SetLoopingToggle")
+set_looping_toggle = NodePath("")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 margin_right = 300.0
@@ -149,15 +149,6 @@ margin_left = 51.0
 margin_right = 146.0
 margin_bottom = 24.0
 text = "Set Length"
-
-[node name="SetLoopingToggle" type="CheckBox" parent="PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer/GridContainer"]
-margin_left = 150.0
-margin_right = 252.0
-margin_bottom = 24.0
-text = "Set Looping"
-__meta__ = {
-"_editor_description_": "Sets the loop property of the Animation to equal the SpriteFrame animation"
-}
 
 [node name="InsertButton" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/VBoxContainer/InsertContainer"]
 margin_top = 28.0
