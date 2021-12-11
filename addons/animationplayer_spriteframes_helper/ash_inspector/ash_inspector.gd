@@ -54,7 +54,7 @@ func _get_all_animatedsprite_nodes() -> Array:
 	var animated_sprites := []
 	while unvisited_nodes.size() > 0:
 		current_node = unvisited_nodes.pop_back()
-		if current_node is AnimatedSprite:
+		if current_node is AnimatedSprite && current_node.frames:
 			if not animated_sprites.has(current_node):
 				animated_sprites.append(current_node)
 		for c in current_node.get_children():

@@ -26,7 +26,13 @@ func _ready():
 func _process(delta):
 		if not _animation_preview_texture_rect || not sprite_frames || not animation_name:
 			return
-	
+		
+		if sprite_frames.get_animation_speed(animation_name) == 0.0:
+			return
+
+		if sprite_frames.get_frame_count(animation_name) == 0:
+				return
+
 		_time_since_last_frame += delta;
 		if _time_since_last_frame > 1.0 / sprite_frames.get_animation_speed(animation_name):
 			_current_frame = (_current_frame + 1) % sprite_frames.get_frame_count(animation_name)
