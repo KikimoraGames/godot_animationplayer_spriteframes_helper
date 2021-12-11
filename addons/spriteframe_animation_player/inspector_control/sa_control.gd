@@ -12,11 +12,11 @@ export(NodePath) var fill_toggle: NodePath
 export(NodePath) var insert_control: NodePath
 export(NodePath) var set_animation_length_toggle: NodePath
 
-var _previous_animation: String
+var _animatedsprite_nodes: Array
 
 onready var _refresh_button: Button = get_node(refresh_button)
 onready var _assigned_animation_option_button: OptionButton = get_node(assigned_animation_option_button)
-onready var _option_button: OptionButton = get_node(option_button)
+onready var _animatedsprite_option_button: OptionButton = get_node(option_button)
 onready var _current_animation_preview: SpriteFramesAnimationViewContainer = get_node(current_animation_preview)
 onready var _option_button_container: Control = get_node(option_button_container)
 onready var _insert_button: Button = get_node(insert_button)
@@ -26,14 +26,16 @@ onready var _set_animation_length_toggle: CheckBox = get_node(set_animation_leng
 
 var animation_player: AnimationPlayer
 
-
 func _ready():
 	_refresh_button.connect("pressed", self, "refresh_animation")
-	_option_button.connect("item_selected", self, "_on_item_selected")
+	_animatedsprite_option_button.connect("item_selected", self, "_on_item_selected")
 	_insert_button.connect("pressed", self, "_insert_track")
 	_assigned_animation_option_button.connect("item_selected", self, "_on_animation_assigned")
+	
 	if not animation_player:
 		return
+	
+	_animatedsprite_nodes = _get_all_animatedsprite_nodes()
 	var anims = animation_player.get_animation_list()
 	for a in anims:
 		_assigned_animation_option_button.add_item(a)
@@ -46,6 +48,19 @@ func _ready():
 func _exit_tree():
 	_cleanup()
 
+func _get_all_animatedsprite_nodes() -> Array:
+	var current_node : Node = animation_player.get_tree().edited_scene_root
+	var unvisited_nodes := current_node.get_children()
+	unvisited_nodes.push_back(current_node)
+	var animated_sprites := []
+	while unvisited_nodes.size() > 0:
+		current_node = unvisited_nodes.pop_back()
+		if current_node is AnimatedSprite:
+			if not animated_sprites.has(current_node):
+				animated_sprites.append(current_node)
+		for c in current_node.get_children():
+			unvisited_nodes.push_back(c)
+	return animated_sprites
 
 func _on_animation_assigned(idx: int) -> void:
 	animation_player.assigned_animation = _assigned_animation_option_button.get_item_text(idx)
@@ -53,7 +68,7 @@ func _on_animation_assigned(idx: int) -> void:
 
 
 func _cleanup():
-	_option_button.clear()
+	_animatedsprite_option_button.clear()
 
 
 func _animation_player_root_node() -> Node:
@@ -62,8 +77,6 @@ func _animation_player_root_node() -> Node:
 
 func toggle_controls_visible(v: bool) -> void:
 	_current_animation_preview.visible = v
-	_insert_button.visible = v
-	_insert_control.visible = v
 
 
 func refresh_animation():
@@ -71,26 +84,45 @@ func refresh_animation():
 		return
 
 	_cleanup()
-	_previous_animation = animation_player.assigned_animation
 	var animation: Animation = animation_player.get_animation(animation_player.assigned_animation)
+	
 	var tc := animation.get_track_count()
-	if tc == 0:
-		toggle_controls_visible(false)
-		return
+	var animatedsprites_in_animation = []
+	var animatedsprites_not_in_animation = []
+	for animated_sprite in _animatedsprite_nodes:
+		var found := false
+		var visited_nodes: Dictionary = {}
+		for i in tc:
+			var path := animation.track_get_path(i)
+			var node := _animation_player_root_node().get_node(path) as AnimatedSprite
+			if node == null || node in visited_nodes:
+				continue
+			visited_nodes[node] = null
+			var track_animated_sprite = node as AnimatedSprite
+			if track_animated_sprite != animated_sprite:
+				continue
+			found = true
+			animatedsprites_in_animation.append(animated_sprite)
+		if not found:
+			animatedsprites_not_in_animation.append(animated_sprite)
+
+	for animated_sprite in animatedsprites_in_animation:
+		_animatedsprite_option_button.add_item(animated_sprite.name)
+		_animatedsprite_option_button.set_item_metadata(
+				_animatedsprite_option_button.get_item_count()-1,
+				{"frames": animated_sprite.frames, "node": animated_sprite, "track_exists": true})
 	
-	var visited_nodes: Dictionary = {}
-	for i in tc:
-		var path := animation.track_get_path(i)
-		var node := _animation_player_root_node().get_node(path) as AnimatedSprite
-		if node == null || visited_nodes.has(node):
-			continue
-		visited_nodes[node] = null
-		var animated_sprite = node as AnimatedSprite
-		_option_button.add_item(animated_sprite.name)
-		_option_button.set_item_metadata(_option_button.get_item_count()-1, {"frames": animated_sprite.frames, "node": animated_sprite})
+	if animatedsprites_not_in_animation.size() > 0 && animatedsprites_in_animation.size() > 0 :
+		_animatedsprite_option_button.add_separator()
 	
-	_option_button_container.visible = _option_button.get_item_count() > 0
-	if _option_button.get_item_count() <= 0:
+	for animated_sprite in animatedsprites_not_in_animation:
+		_animatedsprite_option_button.add_item(animated_sprite.name)
+		_animatedsprite_option_button.set_item_metadata(
+				_animatedsprite_option_button.get_item_count()-1,
+				{"frames": animated_sprite.frames, "node": animated_sprite, "track_exists": false})
+	
+	# _option_button_container.visible = _animatedsprite_option_button.get_item_count() > 0
+	if _animatedsprite_option_button.get_item_count() <= 0:
 		toggle_controls_visible(false)
 		return
 
@@ -99,11 +131,11 @@ func refresh_animation():
 
 		
 func _on_item_selected(idx: int) -> void:
-	_current_animation_preview.sprite_frames = _option_button.get_item_metadata(idx)["frames"]
+	_current_animation_preview.sprite_frames = _animatedsprite_option_button.get_item_metadata(idx)["frames"]
 
 
 func _insert_track() -> void:
-	var sm = _option_button.get_selected_metadata()
+	var sm = _animatedsprite_option_button.get_selected_metadata()
 	var frames: SpriteFrames = sm["frames"]
 	var target_node: AnimatedSprite = sm["node"]
 	var target_node_path: = _animation_player_root_node().get_path_to(target_node)
@@ -122,7 +154,7 @@ func _insert_track() -> void:
 		var np := ""
 		for n in target_node_path.get_name_count():
 			np += "%s/" % target_node_path.get_name(n)
-		np += ":%s" % k["property"]
+		np += ":%s" % k
 		target_animation.value_track_set_update_mode(idx, Animation.UPDATE_DISCRETE)
 		target_animation.track_set_path(idx, np)
 		target_tracks[k] = idx
@@ -146,18 +178,18 @@ func _insert_track() -> void:
 		target_animation.track_insert_key(target_tracks[k["property"]], t, k["value"])
 	# add key frames for "frame"
 	var frame_track :int = target_tracks["frame"]
-	for frame in source_animation_frame_count:
-		frame = frame % source_animation_frame_count
+	var frame := -1
+	while t <= last_keyframe_time:
+		frame = (frame + 1) % source_animation_frame_count
 		target_animation.track_insert_key(frame_track, t, frame)
 		t += frequency
-		if t > last_keyframe_time:
-			break
 	
 	if _set_animation_length_toggle.pressed:
 		target_animation.length = t
 	
 	_set_animation_length_toggle.pressed = false
 	_fill_toggle.pressed = false
+	refresh_animation()
 
 func _get_target_tracks(target_animation: Animation, target_node: Node) -> Dictionary:
 	var target_tracks := []
