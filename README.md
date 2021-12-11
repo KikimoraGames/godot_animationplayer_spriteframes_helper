@@ -3,8 +3,6 @@ AnimationPlayer SpriteFrames Helper allows for an easier addition of SpriteFrame
 
 <img align="center" src="./screenshots/ash_demo.gif" />
 
--------
-
 # Table Of Contents  <!-- omit in toc -->
 - [Why?](#why)
 - [How To](#how-to)
