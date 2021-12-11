@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://addons/spriteframe_animation_player/animation_view/sa_animation_view.gd" type="Script" id=1]
+[ext_resource path="res://addons/animationplayer_spriteframes_helper/ash_animation_preview/ash_animation_preview.gd" type="Script" id=1]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
-[node name="SA_AnimationView" type="MarginContainer"]
+[node name="AnimationPreview" type="MarginContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )

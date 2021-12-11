@@ -8,32 +8,10 @@
 
 config_version=4
 
-_global_script_classes=[ {
-"base": "Control",
-"class": "SpriteFrameAnimationPlayerControl",
-"language": "GDScript",
-"path": "res://addons/spriteframe_animation_player/inspector_control/sa_control.gd"
-}, {
-"base": "Control",
-"class": "SpriteFramesAnimationView",
-"language": "GDScript",
-"path": "res://addons/spriteframe_animation_player/animation_view/sa_animation_view.gd"
-}, {
-"base": "Control",
-"class": "SpriteFramesAnimationViewContainer",
-"language": "GDScript",
-"path": "res://addons/spriteframe_animation_player/spriteframes_view/sa_spriteframes_view.gd"
-} ]
-_global_script_class_icons={
-"SpriteFrameAnimationPlayerControl": "",
-"SpriteFramesAnimationView": "",
-"SpriteFramesAnimationViewContainer": ""
-}
-
 [application]
 
 config/name="SpriteFrame Animation"
-run/main_scene="res://addons/spriteframe_animation_player/inspector_control/sa_control.tscn"
+run/main_scene="res://ash_example/example.tscn"
 config/icon="res://sa_example/icon.png"
 
 [display]
@@ -42,7 +20,7 @@ window/size/width=300
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/spriteframe_animation_player/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/animationplayer_spriteframes_helper/plugin.cfg" )
 
 [physics]
 

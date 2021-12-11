@@ -5,11 +5,13 @@ var _animation_player: AnimationPlayer
 func can_handle(object):
 	return object is AnimationPlayer
 
+
 func parse_begin(object):
 	_animation_player = object
 
+
 func parse_end():
-	var control_instance =	load("res://addons/spriteframe_animation_player/inspector_control/sa_control.tscn").instance()
+	var control_instance =	preload("res://addons/animationplayer_spriteframes_helper/ash_inspector/ash_inspector.tscn").instance()
 	control_instance.set("animation_player", _animation_player)
 	var ep = EditorProperty.new()
 	ep.add_child(control_instance)

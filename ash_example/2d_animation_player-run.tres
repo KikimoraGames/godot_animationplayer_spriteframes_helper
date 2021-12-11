@@ -1,6 +1,6 @@
 [gd_resource type="SpriteFrames" load_steps=14 format=2]
 
-[ext_resource path="res://sa_example/2d_animation_player-run.png" type="Texture" id=1]
+[ext_resource path="res://ash_example/2d_animation_player-run.png" type="Texture" id=1]
 
 [sub_resource type="AtlasTexture" id=7]
 flags = 4

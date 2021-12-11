@@ -1,5 +1,4 @@
 tool
-class_name SpriteFrameAnimationPlayerControl
 extends Control
 
 export(NodePath) var refresh_button: NodePath
@@ -17,7 +16,7 @@ var _animatedsprite_nodes: Array
 onready var _refresh_button: Button = get_node(refresh_button)
 onready var _assigned_animation_option_button: OptionButton = get_node(assigned_animation_option_button)
 onready var _animatedsprite_option_button: OptionButton = get_node(option_button)
-onready var _current_animation_preview: SpriteFramesAnimationViewContainer = get_node(current_animation_preview)
+onready var _current_animation_preview: Control = get_node(current_animation_preview)
 onready var _option_button_container: Control = get_node(option_button_container)
 onready var _insert_button: Button = get_node(insert_button)
 onready var _fill_toggle: CheckBox = get_node(fill_toggle)
@@ -140,7 +139,7 @@ func _insert_track() -> void:
 	var target_node: AnimatedSprite = sm["node"]
 	var target_node_path: = _animation_player_root_node().get_path_to(target_node)
 	var target_animation := animation_player.get_animation(animation_player.assigned_animation)
-	var source_animation := _current_animation_preview.get_current_animation()
+	var source_animation : String = _current_animation_preview.get_current_animation()
 	var t := animation_player.current_animation_position
 
 	# first get all target_tracks
@@ -185,7 +184,7 @@ func _insert_track() -> void:
 		t += frequency
 	
 	if _set_animation_length_toggle.pressed:
-		target_animation.length = t
+		target_animation.length = last_keyframe_time
 	
 	_set_animation_length_toggle.pressed = false
 	_fill_toggle.pressed = false

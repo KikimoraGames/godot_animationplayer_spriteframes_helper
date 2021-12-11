@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/2d_animation_player-run.png-a109511b2565b2f5eb398b2f6fea2a7c.stex"
+path="res://.import/2d_animation_frog_spritesheet.png-b31b19c5f5c8cd1fa6695f25fc16aa28.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sa_example/2d_animation_player-run.png"
-dest_files=[ "res://.import/2d_animation_player-run.png-a109511b2565b2f5eb398b2f6fea2a7c.stex" ]
+source_file="res://ash_example/2d_animation_frog_spritesheet.png"
+dest_files=[ "res://.import/2d_animation_frog_spritesheet.png-b31b19c5f5c8cd1fa6695f25fc16aa28.stex" ]
 
 [params]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://addons/spriteframe_animation_player/inspector_control/sa_control.gd" type="Script" id=1]
-[ext_resource path="res://addons/spriteframe_animation_player/spriteframes_view/sa_spriteframes_view.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/animationplayer_spriteframes_helper/ash_inspector/ash_inspector.gd" type="Script" id=1]
+[ext_resource path="res://addons/animationplayer_spriteframes_helper/ash_spriteframes_view/ash_spriteframes_view.tscn" type="PackedScene" id=2]
 
 [sub_resource type="StyleBoxEmpty" id=2]
 
@@ -12,7 +12,7 @@ bg_color = Color( 0.25098, 0.270588, 0.32549, 1 )
 
 [sub_resource type="StyleBoxEmpty" id=4]
 
-[node name="SpriteFramesAnimationInspectorControl" type="PanelContainer"]
+[node name="Inspector" type="PanelContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3

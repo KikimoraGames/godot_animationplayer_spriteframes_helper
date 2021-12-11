@@ -1,5 +1,4 @@
 tool
-class_name SpriteFramesAnimationView
 extends Control
 
 export(SpriteFrames) var sprite_frames: SpriteFrames
